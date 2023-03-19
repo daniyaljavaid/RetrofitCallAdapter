@@ -1,4 +1,4 @@
-package com.dj.retrofitcalladapter.datasource
+package com.dj.retrofitcalladapter.common.retrofit
 
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -13,7 +13,7 @@ object RetrofitObject {
     fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-//            .addCallAdapterFactory(ResponseAdapterFactory())
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()

@@ -18,11 +18,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun callApi() {
         GlobalScope.launch {
-            when (val response = getServiceObject().getData()) {
-//                is ResultState.Success -> Log.d("----->", response.data.name)
-//                is ResultState.Error -> Log.d("----->", "Network Error")
+            try {
+                when (val response = getServiceObject().getData()) {
+                    is ResultState.Success -> Log.d("----->", response.data.name)
+                    is ResultState.Error -> Log.d("----->", "Network Error")
+                }
+            } catch (exception: Exception) {
+                Log.e("----->", exception.toString())
             }
+
         }
     }
-
 }
