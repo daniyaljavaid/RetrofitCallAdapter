@@ -17,24 +17,23 @@ class ResultStateFlowAdapterFactory : CallAdapter.Factory() {
     ): CallAdapter<*, *>? {
         // return null if we can't handle any of the type and let retrofit handle itself
 
-//        // suspend functions wrap the response type in `Call`
         if (Flow::class.java != getRawType(returnType)) {
             return null
         }
 
         // check first that the return type is `ParameterizedType`
         check(returnType is ParameterizedType) {
-            "return type must be parameterized as Call<ResultState<<Foo>> or Call<ResultState<out Foo>>"
+            "return type must be parameterized as Flow<ResultState<<Foo>>"
         }
 
-        // get the response type inside the `Call` type
+        // get the response type inside the `Flow` type
         val responseType = getParameterUpperBound(0, returnType)
-        // if the response type is not ApiResponse then we can't handle this type, so we return null
+        // if the response type is not ResultState then we can't handle this type, so we return null
         if (getRawType(responseType) != ResultState::class.java) {
             return null
         }
 
-        // the response type is ApiResponse and should be parameterized
+        // the response type is ResultState and should be parameterized
         check(responseType is ParameterizedType) { "Response must be parameterized as ResultState<Foo> or ResultState<out Foo>" }
 
         val successBodyType = getParameterUpperBound(0, responseType)

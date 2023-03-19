@@ -28,12 +28,12 @@ class ResultStateAdapterFactory : CallAdapter.Factory() {
 
         // get the response type inside the `Call` type
         val responseType = getParameterUpperBound(0, returnType)
-        // if the response type is not ApiResponse then we can't handle this type, so we return null
+        // if the response type is not ResultState then we can't handle this type, so we return null
         if (getRawType(responseType) != ResultState::class.java) {
             return null
         }
 
-        // the response type is ApiResponse and should be parameterized
+        // the response type is ResultState and should be parameterized
         check(responseType is ParameterizedType) { "Response must be parameterized as ResultState<Foo> or ResultState<out Foo>" }
 
         val successBodyType = getParameterUpperBound(0, responseType)
