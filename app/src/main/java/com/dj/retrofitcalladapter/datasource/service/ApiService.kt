@@ -13,5 +13,5 @@ interface ApiService {
     suspend fun getDataWithResultState(): ResultState<ResponseDto>
 
     @GET("?name=dj")
-    suspend fun getDataWithResultStateFlow(): Flow<ResultState<ResponseDto>>
+    fun getDataWithResultStateFlow(): Flow<ResultState<ResponseDto>>
 }

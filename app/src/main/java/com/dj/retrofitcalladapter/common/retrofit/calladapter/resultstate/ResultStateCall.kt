@@ -1,4 +1,4 @@
-package com.dj.retrofitcalladapter.common.retrofit
+package com.dj.retrofitcalladapter.common.retrofit.calladapter.resultstate
 
 import com.dj.retrofitcalladapter.common.ResultState
 import okhttp3.Request
@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import java.io.IOException
 
-internal class NetworkResponseCall<S : Any>(
+internal class ResultStateCall<S : Any>(
     private val delegate: Call<S>
 ) : Call<ResultState<S>> {
 
@@ -22,19 +22,19 @@ internal class NetworkResponseCall<S : Any>(
                 if (response.isSuccessful) {
                     if (body != null) {
                         callback.onResponse(
-                            this@NetworkResponseCall,
+                            this@ResultStateCall,
                             Response.success(ResultState.Success(body))
                         )
                     } else {
                         // Response is successful but the body is null
                         callback.onResponse(
-                            this@NetworkResponseCall,
+                            this@ResultStateCall,
                             Response.success(ResultState.Error(null))
                         )
                     }
                 } else {
                     callback.onResponse(
-                        this@NetworkResponseCall,
+                        this@ResultStateCall,
                         Response.success(ResultState.Error(null))
                     )
                 }
@@ -45,14 +45,14 @@ internal class NetworkResponseCall<S : Any>(
                     is IOException -> ResultState.Error(throwable)
                     else -> ResultState.Error(throwable)
                 }
-                callback.onResponse(this@NetworkResponseCall, Response.success(networkResponse))
+                callback.onResponse(this@ResultStateCall, Response.success(networkResponse))
             }
         })
     }
 
     override fun isExecuted() = delegate.isExecuted
 
-    override fun clone() = NetworkResponseCall(delegate.clone())
+    override fun clone() = ResultStateCall(delegate.clone())
 
     override fun isCanceled() = delegate.isCanceled
 
