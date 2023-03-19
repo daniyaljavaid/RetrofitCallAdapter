@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         GlobalScope.launch {
-            callApi()
-            callApiWithResultState()
+//            callApi()
+//            callApiWithResultState()
             callApiWithResultStateFlow()
         }
     }

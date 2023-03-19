@@ -1,6 +1,7 @@
 package com.dj.retrofitcalladapter.common.retrofit
 
 import com.dj.retrofitcalladapter.common.retrofit.calladapter.resultstate.ResultStateAdapterFactory
+import com.dj.retrofitcalladapter.common.retrofit.calladapter.resultstateflow.ResultStateFlowAdapterFactory
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -15,6 +16,7 @@ object RetrofitObject {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(ResultStateAdapterFactory())
+            .addCallAdapterFactory(ResultStateFlowAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(okHttpClient)
             .build()
