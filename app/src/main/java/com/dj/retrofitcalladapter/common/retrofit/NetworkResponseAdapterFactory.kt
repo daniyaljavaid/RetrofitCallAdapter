@@ -36,11 +36,7 @@ class NetworkResponseAdapterFactory : CallAdapter.Factory() {
         check(responseType is ParameterizedType) { "Response must be parameterized as NetworkResponse<Foo> or NetworkResponse<out Foo>" }
 
         val successBodyType = getParameterUpperBound(0, responseType)
-        val errorBodyType = getParameterUpperBound(1, responseType)
 
-        val errorBodyConverter =
-            retrofit.nextResponseBodyConverter<Any>(null, errorBodyType, annotations)
-
-        return NetworkResponseAdapter<Any, Any>(successBodyType, errorBodyConverter)
+        return NetworkResponseAdapter<Any>(successBodyType)
     }
 }

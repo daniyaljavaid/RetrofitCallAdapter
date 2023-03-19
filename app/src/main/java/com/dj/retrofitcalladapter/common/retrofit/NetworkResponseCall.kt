@@ -3,16 +3,13 @@ package com.dj.retrofitcalladapter.common.retrofit
 import com.dj.retrofitcalladapter.common.ResultState
 import okhttp3.Request
 import retrofit2.Response
-import okhttp3.ResponseBody
 import okio.Timeout
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.Converter
 import java.io.IOException
 
-internal class NetworkResponseCall<S : Any, E : Any>(
-    private val delegate: Call<S>,
-    private val errorConverter: Converter<ResponseBody, E>
+internal class NetworkResponseCall<S : Any>(
+    private val delegate: Call<S>
 ) : Call<ResultState<S>> {
 
     override fun enqueue(callback: Callback<ResultState<S>>) {
@@ -36,26 +33,10 @@ internal class NetworkResponseCall<S : Any, E : Any>(
                         )
                     }
                 } else {
-                    val errorBody = when {
-                        error == null -> null
-                        error.contentLength() == 0L -> null
-                        else -> try {
-                            errorConverter.convert(error)
-                        } catch (ex: Exception) {
-                            null
-                        }
-                    }
-                    if (errorBody != null) {
-                        callback.onResponse(
-                            this@NetworkResponseCall,
-                            Response.success(ResultState.Error(null))
-                        )
-                    } else {
-                        callback.onResponse(
-                            this@NetworkResponseCall,
-                            Response.success(ResultState.Error(null))
-                        )
-                    }
+                    callback.onResponse(
+                        this@NetworkResponseCall,
+                        Response.success(ResultState.Error(null))
+                    )
                 }
             }
 
@@ -71,7 +52,7 @@ internal class NetworkResponseCall<S : Any, E : Any>(
 
     override fun isExecuted() = delegate.isExecuted
 
-    override fun clone() = NetworkResponseCall(delegate.clone(), errorConverter)
+    override fun clone() = NetworkResponseCall(delegate.clone())
 
     override fun isCanceled() = delegate.isCanceled
 
