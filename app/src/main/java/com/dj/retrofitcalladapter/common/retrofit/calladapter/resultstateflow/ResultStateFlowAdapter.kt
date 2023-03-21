@@ -25,7 +25,11 @@ class ResultStateFlowAdapter<S : Any>(
                 suspendCancellableCoroutine { continuation ->
                     call.enqueue(object : Callback<S> {
                         override fun onFailure(call: Call<S>, t: Throwable) {
-                            continuation.resumeWithException(t)
+//                            continuation.resumeWithException(t)
+                            continuation.resume(
+                                value = ResultState.Error(t),
+                                null
+                            )
                         }
 
                         override fun onResponse(call: Call<S>, response: Response<S>) {

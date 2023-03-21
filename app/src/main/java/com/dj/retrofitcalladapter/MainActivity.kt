@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         GlobalScope.launch {
-//            callApi()
-//            callApiWithResultState()
+            callApi()
+            callApiWithResultState()
             callApiWithResultStateFlow()
         }
     }
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun callApiWithResultStateFlow() {
-        try {
+        try { // to catch exception if flow is not allowed in factory
             apiService.getDataWithResultStateFlow()
                 .catch { exception ->
                     Log.e("callApiWithResultStateFlow----->", exception.toString())
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                         )
                         is ResultState.Error -> Log.d(
                             "callApiWithResultStateFlow----->",
-                            "Network Error"
+                            it.exception?.message.toString()
                         )
                     }
                 }
