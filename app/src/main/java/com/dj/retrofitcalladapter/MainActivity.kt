@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private suspend fun callApiWithResultStateFlow() {
-        try { // to catch exception if flow is not allowed in factory
+        try {
             apiService.getDataWithResultStateFlow()
                 .catch { exception ->
                     Log.e("callApiWithResultStateFlow----->", exception.toString())
