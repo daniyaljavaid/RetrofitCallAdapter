@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         GlobalScope.launch {
             callApi()
+            callApiWithResponse()
             callApiWithResultState()
             callApiWithResultStateFlow()
         }
@@ -33,6 +34,16 @@ class MainActivity : AppCompatActivity() {
             Log.d("callApi----->", response.name)
         } catch (exception: Exception) {
             Log.e("callApi----->", exception.toString())
+        }
+
+    }
+
+    private suspend fun callApiWithResponse() {
+        try {
+            val response = apiService.getDataAsResponse()
+            Log.d("callApiWithResponse----->", response.body()!!.name)
+        } catch (exception: Exception) {
+            Log.e("callApiWithResponse----->", exception.toString())
         }
 
     }

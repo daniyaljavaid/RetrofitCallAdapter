@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-class ResultStateAdapterFactory : CallAdapter.Factory() {
+class ResultStateAdapterFactory() : CallAdapter.Factory() {
 
     override fun get(
         returnType: Type,
@@ -31,6 +31,7 @@ class ResultStateAdapterFactory : CallAdapter.Factory() {
         // if the response type is not ResultState then we can't handle this type, so we return null
         if (getRawType(responseType) != ResultState::class.java) {
             return null
+//            return ResultStateExceptionAdapter<Any>()
         }
 
         // the response type is ResultState and should be parameterized
