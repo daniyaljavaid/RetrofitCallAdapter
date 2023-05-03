@@ -1,4 +1,5 @@
-# RetrofitCallAdapters
+# Retrofit Call Adapters
+## ResultState & Flow
 
 Retrofit call adapters to support following types:
 ```
@@ -26,3 +27,27 @@ sealed interface ResultState<out T> {
 }
 ```
 
+# Type Restriction Adapter
+
+Added ```RestrictionAdapter``` to restrict any return type other than:
+```
+ResultState<T>
+```
+
+So following return types will throw exception
+
+```
+@GET("?name=xyz")
+suspend fun getData(): ResponseDto
+
+@GET("?name=xyz")
+suspend fun getDataAsResponse(): Response<ResponseDto>
+```
+
+and only ```ResultState<T>``` will be supported
+
+
+```
+@GET("?name=dj")
+suspend fun getDataWithResultState(): ResultState<ResponseDto>
+```
