@@ -1,5 +1,6 @@
 package com.dj.retrofitcalladapter.common.retrofit
 
+import com.dj.retrofitcalladapter.common.retrofit.calladapter.restrict.RestrictionAdapterFactory
 import com.dj.retrofitcalladapter.common.retrofit.calladapter.resultstate.ResultStateAdapterFactory
 import com.dj.retrofitcalladapter.common.retrofit.calladapter.resultstateflow.ResultStateFlowAdapterFactory
 import com.squareup.moshi.Moshi
@@ -15,6 +16,7 @@ object RetrofitObject {
     fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
+            .addCallAdapterFactory(RestrictionAdapterFactory())
             .addCallAdapterFactory(ResultStateAdapterFactory())
             .addCallAdapterFactory(ResultStateFlowAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
