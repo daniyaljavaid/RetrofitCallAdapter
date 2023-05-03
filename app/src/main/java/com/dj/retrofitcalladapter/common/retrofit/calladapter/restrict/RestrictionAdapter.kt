@@ -7,10 +7,10 @@ import java.lang.reflect.Type
 class RestrictionAdapter<S : Any> : CallAdapter<S, Call<Any>> {
 
     override fun responseType(): Type {
-        throw IllegalStateException("Unsupported type")
+        throw IllegalStateException("Restricted type")
     }
 
     override fun adapt(call: Call<S>): Call<Any> {
-        throw IllegalStateException("Unsupported type")
+        throw IllegalStateException("Restricted type")
     }
 }
