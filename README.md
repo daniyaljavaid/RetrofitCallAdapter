@@ -48,6 +48,18 @@ and only ```ResultState<T>``` will be supported
 
 
 ```
-@GET("?name=dj")
+@GET("?name=xyz")
 suspend fun getDataWithResultState(): ResultState<ResponseDto>
 ```
+
+## Benefit
+
+Retrofit supports following return types:
+```
+1. Call<ResponseDto>
+2. Response<ResponseDto>
+3. ResponseDto
+```
+& more based on call adapters added for supporting return types
+
+```RestrictionAdapter``` restrict a single return type & enforces symmetry throughout the app
